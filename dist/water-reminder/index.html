@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0e403f">
+  <title>喝口水 · 30 分钟提醒</title>
+  <style>
+    :root{--ink:#102b2b;--deep:#0e403f;--mint:#d8f0e7;--aqua:#72d9c6;--sun:#ffd66b;--white:#fcfffd}*{box-sizing:border-box}html,body{height:100%;margin:0}body{font-family:ui-rounded,"SF Pro Rounded","PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--deep);overflow:hidden}.app{min-height:100%;display:grid;place-items:center;position:relative;padding:24px;isolation:isolate;background:radial-gradient(circle at 20% 15%,#5ad2bd 0 1%,transparent 25%),radial-gradient(circle at 84% 82%,#317c73 0 1%,transparent 30%),var(--deep)}.bubble{position:absolute;border-radius:50%;filter:blur(.2px);opacity:.3;z-index:-1}.bubble.a{width:33vw;height:33vw;min-width:260px;min-height:260px;background:#b5f5e4;left:-10%;top:-14%}.bubble.b{width:25vw;height:25vw;min-width:180px;min-height:180px;background:var(--sun);right:-8%;bottom:-9%}.card{width:min(760px,100%);text-align:center;color:var(--white)}.label{font-size:12px;font-weight:800;letter-spacing:.18em;opacity:.78}.glass{width:130px;height:156px;margin:28px auto 22px;border:7px solid var(--white);border-top:0;border-radius:0 0 42px 42px;position:relative;overflow:hidden;filter:drop-shadow(0 16px 18px #061c1c66)}.water{position:absolute;inset:auto -8px 0;height:68%;background:linear-gradient(160deg,#c5fff3,#49c7ba);transition:height .5s ease}.water:before{content:"";position:absolute;width:140%;height:25px;border-radius:50%;background:#c5fff3;left:-18%;top:-12px;animation:wave 3s ease-in-out infinite}@keyframes wave{50%{transform:translateX(12px)}}h1{font-size:clamp(44px,9vw,82px);letter-spacing:-.08em;line-height:1;margin:0}.sub{font-size:clamp(16px,2vw,20px);line-height:1.7;margin:18px auto 25px;max-width:480px;color:#d7f0e9}.timer{font-variant-numeric:tabular-nums;font-size:clamp(54px,10vw,92px);font-weight:800;letter-spacing:-.07em;margin:6px 0 24px;color:var(--sun);text-shadow:0 5px 0 #103e3b}.bar{height:10px;background:#ffffff2b;border-radius:99px;overflow:hidden;max-width:460px;margin:0 auto 28px}.progress{height:100%;width:0;background:linear-gradient(90deg,var(--aqua),var(--sun));border-radius:inherit;transition:width .8s linear}.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}button{appearance:none;border:0;border-radius:999px;padding:14px 19px;cursor:pointer;font:700 15px inherit;transition:transform .2s,background .2s,box-shadow .2s}button:hover{transform:translateY(-2px)}.primary{background:var(--sun);color:var(--ink);box-shadow:0 9px 0 #c79f37}.secondary{background:#ffffff1e;color:var(--white);border:1px solid #ffffff4d}.status{min-height:22px;margin-top:22px;font-size:13px;color:#d3ebe5}.note{margin:29px auto 0;font-size:12px;line-height:1.7;max-width:520px;color:#b8d8d0}.ring{animation:ring .55s ease 2}@keyframes ring{25%{transform:rotate(2deg)}75%{transform:rotate(-2deg)}}@media(max-width:480px){.glass{transform:scale(.85);margin:12px auto 6px}.sub{margin:15px auto}.actions{gap:9px}button{padding:12px 15px}.note{margin-top:20px}}
+  </style>
+</head>
+<body>
+  <main class="app" id="app">
+    <i class="bubble a"></i><i class="bubble b"></i>
+    <section class="card" aria-live="polite">
+      <div class="label">HYDRATION PAUSE · 30 MINUTES</div>
+      <div class="glass" aria-hidden="true"><div class="water" id="water"></div></div>
+      <h1 id="title">下一口水，马上到</h1>
+      <p class="sub" id="subtitle">给身体一点温柔的照顾，30 分钟后提醒你喝水。</p>
+      <div class="timer" id="timer">30:00</div>
+      <div class="bar" aria-label="倒计时进度"><div class="progress" id="progress"></div></div>
+      <div class="actions">
+        <button class="primary" id="drink">我已经喝水啦</button>
+        <button class="secondary" id="fullscreen">进入全屏</button>
+        <button class="secondary" id="notify">开启通知</button>
+      </div>
+      <p class="status" id="status">提醒已开启</p>
+      <p class="note">请保持此页面打开。全屏模式需由你点击开启；浏览器通知需授权后才能在后台弹出。</p>
+    </section>
+  </main>
+  <script>
+    const duration=30*60*1000, timer=document.querySelector('#timer'), progress=document.querySelector('#progress'), status=document.querySelector('#status'), title=document.querySelector('#title'), subtitle=document.querySelector('#subtitle'), water=document.querySelector('#water'), app=document.querySelector('#app');
+    let started=Date.now(), alerted=false;
+    const pad=n=>String(n).padStart(2,'0');
+    function reset(){started=Date.now();alerted=false;title.textContent='下一口水，马上到';subtitle.textContent='给身体一点温柔的照顾，30 分钟后提醒你喝水。';water.style.height='68%';app.classList.remove('ring');status.textContent='新的 30 分钟提醒已开启';render()}
+    function alertDrink(){if(alerted)return;alerted=true;title.textContent='该喝水啦！';subtitle.textContent='起身喝几口水，让身体和思绪都重新清醒。';water.style.height='88%';app.classList.add('ring');status.textContent='提醒已发出，喝完后点击“我已经喝水啦”重新计时';if(navigator.vibrate)navigator.vibrate([180,90,180]);if(Notification.permission==='granted')new Notification('喝口水 💧',{body:'30 分钟到了，去喝几口水吧！'});try{const c=new AudioContext();const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=660;g.gain.setValueAtTime(.08,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.45);o.start();o.stop(c.currentTime+.45)}catch(e){}}
+    function render(){const left=Math.max(0,duration-(Date.now()-started)),sec=Math.ceil(left/1000);timer.textContent=`${pad(Math.floor(sec/60))}:${pad(sec%60)}`;progress.style.width=`${Math.min(100,(1-left/duration)*100)}%`;if(left<=0)alertDrink()}
+    document.querySelector('#drink').addEventListener('click',reset);
+    document.querySelector('#fullscreen').addEventListener('click',async()=>{try{if(!document.fullscreenElement){await document.documentElement.requestFullscreen();status.textContent='已进入全屏';}else{await document.exitFullscreen();status.textContent='已退出全屏';}}catch(e){status.textContent='浏览器未允许进入全屏';}});
+    document.querySelector('#notify').addEventListener('click',async()=>{if(!('Notification'in window)){status.textContent='当前浏览器不支持通知';return}const p=await Notification.requestPermission();status.textContent=p==='granted'?'通知已开启':'未获得通知权限';});
+    document.addEventListener('visibilitychange',()=>{if(!document.hidden)render()});render();setInterval(render,1000);
+  </script>
+</body>
+</html>
