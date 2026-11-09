@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="唐懿的个人主页与联系方式。" />
+    <title>唐懿｜个人主页</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      :root { --ink:#15231f; --muted:#52645d; --line:#d7e3dd; --paper:#f7faf7; --mint:#c6f2dd; --accent:#0a7a55; }
+      * { box-sizing:border-box; }
+      html { scroll-behavior:smooth; }
+      body { margin:0; background:var(--paper); color:var(--ink); font-family:"Noto Sans SC",system-ui,sans-serif; }
+      .shell { min-height:100vh; padding:26px clamp(20px,5vw,76px) 20px; display:flex; flex-direction:column; }
+      nav { display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--line); padding-bottom:20px; font-size:14px; }
+      .brand { font-weight:700; letter-spacing:.04em; } .status { display:flex; gap:8px; align-items:center; color:var(--muted); font-family:"DM Mono",monospace; font-size:11px; }
+      .dot { width:8px; height:8px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 4px #dff9eb; }
+      main { flex:1; display:grid; grid-template-columns:1.15fr .85fr; gap:clamp(38px,8vw,130px); align-items:center; max-width:1180px; width:100%; margin:0 auto; padding:76px 0 58px; }
+      .kicker { display:flex; align-items:center; gap:12px; color:var(--accent); font-family:"DM Mono",monospace; font-size:12px; letter-spacing:.09em; text-transform:uppercase; }
+      .kicker:before { content:""; width:34px; height:1px; background:currentColor; }
+      h1 { font-size:clamp(66px,11vw,148px); line-height:.93; letter-spacing:-.09em; margin:23px 0 25px; font-weight:700; }
+      .intro { max-width:450px; font-size:clamp(16px,1.6vw,19px); line-height:1.8; color:var(--muted); margin:0; }
+      .contact { margin-top:38px; display:flex; flex-wrap:wrap; gap:12px; }
+      .button { text-decoration:none; color:var(--ink); display:inline-flex; align-items:center; gap:9px; padding:13px 17px; background:var(--mint); border:1px solid #98d7b6; border-radius:999px; font-weight:600; font-size:14px; transition:transform .2s, background .2s; }
+      .button:hover { transform:translateY(-2px); background:#aef0cf; }
+      .card { position:relative; background:#fff; border:1px solid var(--line); border-radius:4px; padding:clamp(26px,4vw,48px); box-shadow:10px 10px 0 #e1eee7; overflow:hidden; }
+      .card:after { content:""; position:absolute; width:145px; height:145px; border:28px solid var(--mint); border-radius:50%; right:-70px; top:-65px; }
+      .card-label { position:relative; z-index:1; font-family:"DM Mono",monospace; font-size:11px; letter-spacing:.1em; color:var(--muted); }
+      .row { position:relative; z-index:1; padding:25px 0 19px; border-bottom:1px solid var(--line); } .row:last-child { border:0; padding-bottom:0; }
+      .row span { display:block; color:var(--muted); font-size:12px; margin-bottom:7px; }
+      .row a { color:var(--ink); font-size:clamp(17px,2vw,23px); text-decoration:none; font-weight:600; word-break:break-all; }
+      .row a:hover { color:var(--accent); }
+      footer { display:flex; justify-content:space-between; color:var(--muted); font-family:"DM Mono",monospace; font-size:11px; border-top:1px solid var(--line); padding-top:18px; }
+      @media (max-width:720px) { .shell{padding-top:20px} main { grid-template-columns:1fr; padding:58px 0 48px; gap:52px; } h1{letter-spacing:-.08em} .card{box-shadow:7px 7px 0 #e1eee7} footer { gap:14px; flex-direction:column; } }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <nav><div class="brand">唐懿 / TANG YI</div><div class="status"><i class="dot"></i> OPEN TO CONNECT</div></nav>
+      <main>
+        <section>
+          <div class="kicker">Personal space</div>
+          <h1>唐懿</h1>
+          <p class="intro">你好，欢迎来到我的个人主页。很高兴认识你；如有合作、交流或任何想分享的话题，欢迎随时联系我。</p>
+          <div class="contact">
+            <a class="button" href="tel:18474665219">拨打电话 ↗</a>
+            <a class="button" href="mailto:tangyi2300@gmail.com">发送邮件 ↗</a>
+          </div>
+        </section>
+        <aside class="card" aria-label="联系方式">
+          <div class="card-label">GET IN TOUCH</div>
+          <div class="row"><span>PHONE / 电话</span><a href="tel:18474665219">184 7466 5219</a></div>
+          <div class="row"><span>EMAIL / 邮箱</span><a href="mailto:tangyi2300@gmail.com">tangyi2300@gmail.com</a></div>
+        </aside>
+      </main>
+      <footer><span>© 2026 TANG YI</span><span>MADE WITH CARE</span></footer>
+    </div>
+  </body>
+</html>
